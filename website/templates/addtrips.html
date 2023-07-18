@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Add a Trip{% endblock %}
+{% block content %}
+<h1 align="center">Add a Trip</h1>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<form action="/save-trip" method="GET">
+  <div class="mb-2">
+  <label>City</label><br>
+  <input type="text" name="city">
+  </div>
+
+  <div class="mb-2">
+  <label>Country</label><br>
+  <input type="text" name="country">
+  </div>
+
+  <div class="mb-2">
+  <label>Start Date</label><br>
+  <input type="text" name="start">
+  </div>
+
+  <div class="mb-2">
+    <label>End Date</label><br>
+    <input type="text" name="end">
+    </div>
+  
+  <input type="submit">
+</form>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}My Trips{% endblock %}
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <h1 align="center">{{ user.first_name }}'s Trips</h1>
+
+  <a href="/add-trip" type="button" class="btn btn-outline-primary float-right align-middle" >Add a Trip</a>
+  
+  <ul class="list-group list-group-flush" id="trips">
+    {% if user.trips %}
+    <div class="card-container">
+      {% for trip in user.trips %}
+      
+      <li class="list-group-item">
+        
+        <div class="flip-card">
+          <div class="flip-card-inner">
+              <div class="flip-card-front">
+                  
+                  <h3 class="card-title"><b>{{ trip.city }}, {{ trip.country }}</b></h3>
+                  <p class="paragraph">Total Budget: $<span id="totalBudget{{trip.id}}"></span></p>
+                  <p class="paragraph">Daily Budget: $<span id="dailyBudget{{trip.id}}"></span></p>
+                  <script>
+                    let totalAmount{{trip.id}} = 0;
+                    {% for sub in trip.subs %}
+                      totalAmount{{trip.id}} += {{ sub.amount }}
+                    {% endfor %}
+
+                    const totalVal{{trip.id}} = document.getElementById('totalBudget{{trip.id}}');
+                    totalVal{{trip.id}}.textContent = totalAmount{{trip.id}};
+                  </script>
+
+                  <script>
+                    let totalBudgetVal{{trip.id}} = document.getElementById('totalBudget{{trip.id}}').textContent;
+                    totalBudgetVal{{trip.id}} /= {{ trip.duration }}
+                    const dailyAmountVal{{trip.id}} = document.getElementById('dailyBudget{{trip.id}}');
+                    dailyAmountVal{{trip.id}}.textContent = Math.round((totalBudgetVal{{trip.id}}) * 100) / 100;
+                  </script>
+                  
+                  <p class="paragraph">{{ trip.start_date }} - {{ trip.end_date }}</p>
+              </div>
+              <div class="flip-card-back">
+                <div id="piechart{{trip.id}}"></div>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawChart);
+                  
+                  function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['Task', 'Hours per Day'],
+                      {% for sub in trip.subs %}
+                        ['{{ sub.category }}', {{ sub.amount }}],
+                      {% endfor %}
+                    ]);
+                  
+                    var options = {'title':'Budget Tracker', 'width':300, 'height':400};
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart{{trip.id}}'));
+                    chart.draw(data, options);
+                  }
+                  </script>
+              </div>
+          </div>
+        </div>
+        
+        <button type="button" class="close" onClick="deleteTrip({{ trip.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+        <a href="/edit-trip/{{trip.id}}" type="button" class="btn btn-outline-primary float-right align-middle" >Edit</a>
+      </li>
+      
+      {% endfor %}
+    </div>
+    
+    {% else %}
+    <li class="list-group-item">No Trips</li>
+
+    {% endif %}
+  </ul>
+
+{% endblock %}

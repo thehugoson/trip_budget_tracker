@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+
+  <h1 align="center">Edit a Trip</h1>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <form action="/save-category/{{num_id}}" method="GET">
+    <div class="mb-2">
+    <label>Category</label><br>
+    <input type="text" name="category">
+    </div>
+
+    <div class="mb-2">
+    <label>Amount</label><br>
+    <input type="text" name="amount">
+    </div>
+
+    <input type="submit">
+
+
+
+
+    <ul class="list-group list-group-flush" id="subs">
+      {% if trip.subs %}
+      
+        {% for sub in trip.subs %}
+        
+        <li class="list-group-item">
+          <p class="text">category: {{ sub.category }}</p>
+          <p class="text">amount: {{ sub.amount }}</p>
+          <a href="/delete-category/{{sub.id}}" type="button" class="btn btn-outline-primary float-right align-middle" >Delete</a>
+        </li>
+        {% endfor %}
+      
+      {% else %}
+      <li class="list-group-item">No Subs</li>
+      
+      {% endif %}
+    </ul>
+
+    
+  </form>
+
+{% endblock %}
