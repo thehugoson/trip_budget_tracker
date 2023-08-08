@@ -21,18 +21,15 @@
 
 - Users can put their information to make their account
 
-
 2. Login page
 <img width="1401" alt="Screenshot 2023-08-06 at 4 45 28 PM" src="https://github.com/thehugoson/trip_budget_tracker/assets/139826189/43c515ac-620c-4e63-a051-72a110ff99d8">
 
 - After making an account, users can log into their account
 
-
 3. Edit a Trip page
 <img width="1402" alt="Screenshot 2023-08-06 at 4 44 58 PM" src="https://github.com/thehugoson/trip_budget_tracker/assets/139826189/01a5b8fb-e352-43ba-a0f0-b4528841676b">
 
 - Once users are logged in and added their trips, they can click the "Edit" button to add categories and corresponding amounts
-
 
 4. My Trips page
 <img width="1405" alt="Screenshot 2023-08-06 at 4 44 25 PM" src="https://github.com/thehugoson/trip_budget_tracker/assets/139826189/91cea248-fdc8-4c7f-aae7-10d67f653ab4">
